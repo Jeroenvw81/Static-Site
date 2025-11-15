@@ -122,3 +122,14 @@ the **same** even with inline stuff
             "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
         )
         
+    def test_link_bold(self):
+        md = """
+This is **paragraph** with a [boot dev link](https://boot.dev)
+and an ![image](https://imgur.com/pic.png)
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            '<div><p>This is <b>paragraph</b> with a <a href="https://boot.dev">boot dev link</a> and an <img src="https://imgur.com/pic.png" alt="image"></img></p></div>',
+        )
