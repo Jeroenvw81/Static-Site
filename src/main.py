@@ -2,8 +2,8 @@ import os
 import shutil
 from config import dir_path_static, dir_path_content, dir_path_public, template_path
 
-from gencontent import generate_page
-from copy_static import copy_static
+from gencontent import generate_page_recursive
+from copy_static import copy_files_recursive
 
 def main():
     print("Deleting public directory...")
@@ -11,13 +11,13 @@ def main():
         shutil.rmtree(dir_path_public)
     
     print("Copying source files to public directory...")
-    copy_static(dir_path_static, dir_path_public)
+    copy_files_recursive(dir_path_static, dir_path_public)
 
     print("Generating page...")
-    generate_page(
-        os.path.join(dir_path_content, "index.md"),
+    generate_page_recursive(
+        dir_path_content,
         template_path,
-        os.path.join(dir_path_public, "index.html"),
+        dir_path_public,
     )
 
 main()
